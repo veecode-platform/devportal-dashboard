@@ -146,6 +146,7 @@ This is the **final artifact** consumed by production deployments.
 | Run Automated Update | `automated-update.yml` | plugins, base, distro |
 | Publish | `publish.yml` | plugins |
 | Release | `release.yml` | base, distro |
+| PR Validation | `pr-check.yml` | base (auto-triggered on PRs) |
 
 ## CI/CD Architecture
 
