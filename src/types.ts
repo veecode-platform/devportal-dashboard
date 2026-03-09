@@ -39,3 +39,15 @@ export interface PluginWorkspace {
 }
 
 export type BumpType = "patch" | "minor" | "major";
+
+export type StageStatus = "idle" | "running" | "done" | "failed" | "waiting";
+
+export interface PipelineStage {
+  id: string;
+  label: string;
+  repo: RepoKey;
+  type: "workflow" | "pr" | "publish" | "release";
+  status: StageStatus;
+  detail?: string;
+  url?: string;
+}
