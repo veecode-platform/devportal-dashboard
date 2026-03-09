@@ -2,13 +2,7 @@ import { useState } from "react";
 import { usePluginWorkspaces, useRepoStatus } from "../lib/hooks";
 import { useTriggerUpdate } from "../lib/actions";
 import { PublishModal } from "./PublishModal";
-
-function StatusBadge({ status, conclusion }: { status: string | null; conclusion: string | null }) {
-  if (status === "in_progress") return <span className="px-2 py-0.5 rounded bg-yellow-600 text-xs">running</span>;
-  if (conclusion === "success") return <span className="px-2 py-0.5 rounded bg-green-700 text-xs">success</span>;
-  if (conclusion === "failure") return <span className="px-2 py-0.5 rounded bg-red-700 text-xs">failed</span>;
-  return <span className="px-2 py-0.5 rounded bg-gray-700 text-xs">{status ?? "unknown"}</span>;
-}
+import { StatusBadge } from "./StatusBadge";
 
 export function PluginsCard({ token }: { token: string }) {
   const [showModal, setShowModal] = useState(false);
