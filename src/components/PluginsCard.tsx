@@ -2,11 +2,13 @@ import { useState } from "react";
 import { usePluginWorkspaces, useRepoStatus } from "../lib/hooks";
 import { useTriggerUpdate } from "../lib/actions";
 import { getStatusColor } from "../types";
+import { ConfirmDialog } from "./ConfirmDialog";
 import { PublishModal } from "./PublishModal";
 import { StatusBadge } from "./StatusBadge";
 
 export function PluginsCard({ token }: { token: string }) {
   const [showModal, setShowModal] = useState(false);
+  const [showUpdateConfirm, setShowUpdateConfirm] = useState(false);
   const { data: workspaces, isLoading: wsLoading } = usePluginWorkspaces(token);
   const { runningNow, recentRuns, openPRs, isLoading } = useRepoStatus(token, "plugins");
   const triggerUpdate = useTriggerUpdate(token, "plugins");
@@ -14,10 +16,10 @@ export function PluginsCard({ token }: { token: string }) {
   const statusColor = getStatusColor(runningNow, recentRuns);
 
   return (
-    <div className="bg-card rounded-lg overflow-hidden border border-border">
+    <div className="bg-card rounded-lg overflow-hidden border border-border flex flex-col">
       {/* Status strip - thin colored line at top */}
       <div className={`h-0.5 ${statusColor}`} />
-      <div className="p-5 flex flex-col gap-4">
+      <div className="p-5 flex flex-col gap-4 flex-1">
         <h2 className="text-base font-semibold text-text-primary">devportal-plugins</h2>
 
         {wsLoading ? (
@@ -90,19 +92,32 @@ export function PluginsCard({ token }: { token: string }) {
         {/* Actions */}
         <div className="flex gap-2 mt-auto pt-2 border-t border-border">
           <button
-            onClick={() => triggerUpdate.mutate()}
+            onClick={() => setShowUpdateConfirm(true)}
             disabled={triggerUpdate.isPending}
-            className="flex-1 py-2 rounded text-sm border border-border text-text-secondary hover:bg-card-hover hover:text-text-primary transition-colors disabled:opacity-50"
+            className="flex-1 py-2.5 rounded-md text-sm border border-border text-text-secondary cursor-pointer hover:text-text-primary hover:border-text-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {triggerUpdate.isPending ? "Running..." : "Run Automated Update"}
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="flex-1 py-2 rounded text-sm font-medium bg-accent-green/15 text-accent-green border border-accent-green/30 hover:bg-accent-green/25 transition-colors"
+            className="flex-1 py-2.5 rounded-md text-sm font-medium bg-accent-green/15 text-accent-green border border-accent-green/30 cursor-pointer hover:bg-accent-green/25 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Publish
           </button>
         </div>
+
+        {showUpdateConfirm && (
+          <ConfirmDialog
+            title="Run Automated Update"
+            message="This will trigger the automated update workflow for devportal-plugins. It will open a PR with dependency bumps."
+            confirmLabel="Run Update"
+            onConfirm={() => {
+              triggerUpdate.mutate();
+              setShowUpdateConfirm(false);
+            }}
+            onCancel={() => setShowUpdateConfirm(false)}
+          />
+        )}
 
         {showModal && workspaces && (
           <PublishModal

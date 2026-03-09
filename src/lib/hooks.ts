@@ -164,5 +164,6 @@ export function useRepoStatus(token: string, repoKey: RepoKey) {
     recentRuns: runs.data ?? [],
     runningNow: running.data ?? [],
     isLoading: tag.isLoading || prs.isLoading || runs.isLoading || running.isLoading,
+    isError: tag.isError || prs.isError || runs.isError || running.isError,
   };
 }

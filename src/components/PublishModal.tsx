@@ -136,14 +136,14 @@ export function PublishModal({
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-2 bg-page border border-border text-text-secondary hover:bg-card-hover hover:text-text-primary rounded text-sm transition-colors"
+            className="flex-1 py-2.5 rounded-md border border-border text-text-secondary cursor-pointer hover:text-text-primary hover:border-text-muted transition-colors text-sm"
           >
             Cancel
           </button>
           <button
             onClick={handlePublish}
             disabled={selectedCount === 0 || publish.isPending}
-            className="flex-1 py-2 bg-accent-green/15 text-accent-green border border-accent-green/30 hover:bg-accent-green/25 disabled:opacity-50 rounded text-sm font-medium transition-colors"
+            className="flex-1 py-2.5 rounded-md text-sm font-medium bg-accent-green/15 text-accent-green border border-accent-green/30 cursor-pointer hover:bg-accent-green/25 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {publish.isPending
               ? "Dispatching..."
