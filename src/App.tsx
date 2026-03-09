@@ -37,7 +37,7 @@ export default function App() {
   if (!token) return <AuthGate onAuth={setToken} />;
   if (validating) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center text-gray-400">
+      <div className="min-h-screen bg-page flex items-center justify-center text-text-secondary">
         Validating session…
       </div>
     );
@@ -45,12 +45,12 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+      <div className="min-h-screen bg-page text-text-primary p-6">
         <header className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold">DevPortal Release Pipeline</h1>
           <button
             onClick={() => logout(setToken)}
-            className="text-sm text-gray-400 hover:text-white"
+            className="text-sm text-text-secondary hover:text-white"
           >
             Logout
           </button>
