@@ -61,25 +61,25 @@ export function PublishModal({
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-      <div className="bg-gray-900 rounded-lg p-6 w-[540px] max-h-[80vh] overflow-y-auto">
-        <h3 className="text-lg font-semibold mb-4">Publish Plugins</h3>
+      <div className="bg-card border border-border rounded-lg p-6 w-[540px] max-h-[80vh] overflow-y-auto">
+        <h3 className="text-lg font-semibold text-text-primary mb-4">Publish Plugins</h3>
 
         {/* Bulk actions */}
         <div className="flex justify-between items-center mb-3">
           <button
             onClick={toggleAll}
-            className="text-xs text-blue-400 hover:text-blue-300"
+            className="text-xs text-neon-blue hover:text-neon-blue/80 transition-colors"
           >
             {selectedCount === workspaces.length ? "Deselect all" : "Select all"}
           </button>
           {selectedCount > 0 && (
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">Set all to:</span>
+              <span className="text-xs text-text-muted">Set all to:</span>
               {(["patch", "minor", "major"] as const).map((b) => (
                 <button
                   key={b}
                   onClick={() => setAllBump(b)}
-                  className="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
+                  className="text-xs px-2 py-0.5 rounded bg-page text-text-muted hover:bg-card-hover hover:text-text-primary transition-colors"
                 >
                   {b}
                 </button>
@@ -96,7 +96,7 @@ export function PublishModal({
               <div
                 key={ws.name}
                 className={`flex items-center gap-3 p-2 rounded ${
-                  isSelected ? "bg-gray-800" : "hover:bg-gray-800/50"
+                  isSelected ? "bg-card-hover" : "hover:bg-card-hover/50"
                 }`}
               >
                 <input
@@ -106,19 +106,19 @@ export function PublishModal({
                   className="rounded cursor-pointer"
                 />
                 <span
-                  className={`flex-1 cursor-pointer ${isSelected ? "text-white" : "text-gray-400"}`}
+                  className={`flex-1 cursor-pointer ${isSelected ? "text-text-primary" : "text-text-secondary"}`}
                   onClick={() => toggle(ws.name)}
                 >
                   {ws.name}
                 </span>
-                <span className="text-gray-500 text-sm font-mono w-16 text-right">
+                <span className="text-text-muted text-sm font-mono w-16 text-right">
                   {ws.version}
                 </span>
                 {isSelected ? (
                   <select
                     value={config[ws.name]}
                     onChange={(e) => setBump(ws.name, e.target.value as BumpType)}
-                    className="bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm text-white w-20 cursor-pointer"
+                    className="bg-page border border-border rounded px-2 py-1 text-sm text-text-primary w-20 cursor-pointer"
                   >
                     <option value="patch">patch</option>
                     <option value="minor">minor</option>
@@ -136,14 +136,14 @@ export function PublishModal({
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-2 bg-gray-800 hover:bg-gray-700 rounded text-sm"
+            className="flex-1 py-2 bg-page border border-border text-text-secondary hover:bg-card-hover hover:text-text-primary rounded text-sm transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handlePublish}
             disabled={selectedCount === 0 || publish.isPending}
-            className="flex-1 py-2 bg-green-700 hover:bg-green-600 disabled:opacity-50 rounded text-sm font-medium"
+            className="flex-1 py-2 bg-neon-green/15 text-neon-green border border-neon-green/30 hover:bg-neon-green/25 disabled:opacity-50 rounded text-sm font-medium transition-colors"
           >
             {publish.isPending
               ? "Dispatching..."

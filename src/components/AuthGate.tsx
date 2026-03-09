@@ -22,12 +22,12 @@ export function AuthGate({ onAuth }: { onAuth: (token: string) => void }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="bg-gray-900 p-8 rounded-lg w-96">
-        <h2 className="text-xl font-bold text-white mb-4">
+    <div className="min-h-screen bg-page flex items-center justify-center">
+      <form onSubmit={handleSubmit} className="bg-card border border-border p-8 rounded-lg w-96">
+        <h2 className="text-xl font-bold text-text-primary mb-4">
           DevPortal Dashboard
         </h2>
-        <p className="text-sm text-gray-400 mb-4">
+        <p className="text-sm text-text-secondary mb-4">
           Enter a GitHub PAT with <code>repo</code> and{" "}
           <code>workflow</code> scopes.
         </p>
@@ -36,13 +36,13 @@ export function AuthGate({ onAuth }: { onAuth: (token: string) => void }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="ghp_xxxxxxxxxxxx"
-          className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-white mb-3"
+          className="w-full px-3 py-2 bg-page border border-border rounded text-text-primary mb-3"
         />
-        {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
+        {error && <p className="text-neon-red text-sm mb-3">{error}</p>}
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="w-full py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 rounded text-white font-medium"
+          className="w-full py-2 bg-neon-blue hover:bg-neon-blue/80 disabled:opacity-50 rounded text-white font-medium"
         >
           {loading ? "Validating..." : "Connect"}
         </button>
