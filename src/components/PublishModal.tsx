@@ -68,7 +68,7 @@ export function PublishModal({
         <div className="flex justify-between items-center mb-3">
           <button
             onClick={toggleAll}
-            className="text-xs text-neon-blue hover:text-neon-blue/80 transition-colors"
+            className="text-xs text-accent-blue hover:text-accent-blue/80 transition-colors"
           >
             {selectedCount === workspaces.length ? "Deselect all" : "Select all"}
           </button>
@@ -143,7 +143,7 @@ export function PublishModal({
           <button
             onClick={handlePublish}
             disabled={selectedCount === 0 || publish.isPending}
-            className="flex-1 py-2 bg-neon-green/15 text-neon-green border border-neon-green/30 hover:bg-neon-green/25 disabled:opacity-50 rounded text-sm font-medium transition-colors"
+            className="flex-1 py-2 bg-accent-green/15 text-accent-green border border-accent-green/30 hover:bg-accent-green/25 disabled:opacity-50 rounded text-sm font-medium transition-colors"
           >
             {publish.isPending
               ? "Dispatching..."

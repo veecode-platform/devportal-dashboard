@@ -128,10 +128,10 @@ function deriveStage(def: StageDef, status: RepoStatus): PipelineStage {
 
 const STATUS_CLASSES: Record<StageStatus, string> = {
   idle: "border-border bg-transparent text-text-muted",
-  running: "border-neon-amber bg-neon-amber/15 text-neon-amber animate-pulse",
-  done: "border-neon-green bg-neon-green/15 text-neon-green",
-  failed: "border-neon-red bg-neon-red/15 text-neon-red",
-  waiting: "border-neon-amber border-dashed bg-neon-amber/10 text-neon-amber",
+  running: "border-accent-amber bg-accent-amber/15 text-accent-amber animate-pulse",
+  done: "border-accent-green bg-accent-green/15 text-accent-green",
+  failed: "border-accent-red bg-accent-red/15 text-accent-red",
+  waiting: "border-accent-amber border-dashed bg-accent-amber/10 text-accent-amber",
 };
 
 function StageNode({ stage }: { stage: PipelineStage }) {
@@ -181,7 +181,7 @@ function Connector({ done }: { done: boolean }) {
   return (
     <div
       className={`flex-1 min-w-3 h-px self-center -translate-y-2 ${
-        done ? "bg-neon-green" : "bg-border"
+        done ? "bg-accent-green" : "bg-border"
       }`}
     />
   );
@@ -220,7 +220,7 @@ export function PipelineTracker({ token }: { token: string }) {
   }));
 
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div className="px-1 py-2">
       {isLoading ? (
         <div className="flex items-center justify-center py-4 text-text-muted text-sm">
           Loading pipeline status...

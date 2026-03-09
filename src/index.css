@@ -1,23 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-page: #0b0e13;
-  --color-card: #12161c;
-  --color-card-hover: #171c24;
+  /* GitHub dark mode palette — intentional for a GH Actions dashboard */
+  --color-page: #0d1117;
+  --color-card: #161b22;
+  --color-card-hover: #1c2128;
   --color-feed: #0d1117;
-  --color-border: #1e2530;
-  --color-border-subtle: #161b22;
+  --color-border: #30363d;
+  --color-border-subtle: #21262d;
 
-  --color-neon-green: #22c55e;
-  --color-neon-amber: #f59e0b;
-  --color-neon-red: #ef4444;
-  --color-neon-blue: #3b82f6;
-  --color-neon-purple: #a855f7;
+  /* Status accents — desaturated from Tailwind defaults, tinted toward GH palette */
+  --color-accent-green: #3fb950;
+  --color-accent-amber: #d29922;
+  --color-accent-red: #f85149;
+  --color-accent-blue: #58a6ff;
+  --color-accent-purple: #bc8cff;
 
-  --color-text-primary: #e2e8f0;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #475569;
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #484f58;
 
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }

@@ -38,11 +38,11 @@ export function AuthGate({ onAuth }: { onAuth: (token: string) => void }) {
           placeholder="ghp_xxxxxxxxxxxx"
           className="w-full px-3 py-2 bg-page border border-border rounded text-text-primary mb-3"
         />
-        {error && <p className="text-neon-red text-sm mb-3">{error}</p>}
+        {error && <p className="text-accent-red text-sm mb-3">{error}</p>}
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="w-full py-2 bg-neon-blue hover:bg-neon-blue/80 disabled:opacity-50 rounded text-white font-medium transition-colors"
+          className="w-full py-2 bg-accent-blue hover:bg-accent-blue/80 disabled:opacity-50 rounded text-white font-medium transition-colors"
         >
           {loading ? "Validating..." : "Connect"}
         </button>

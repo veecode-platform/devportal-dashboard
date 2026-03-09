@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useRecentRuns } from "../lib/hooks";
 import type { RepoKey } from "../types";
 import { StatusBadge } from "./StatusBadge";
@@ -13,9 +14,9 @@ function timeAgo(date: string): string {
 }
 
 const REPO_DOT: Record<RepoKey, string> = {
-  plugins: "bg-neon-blue",
-  base: "bg-neon-green",
-  distro: "bg-neon-purple",
+  plugins: "bg-accent-blue",
+  base: "bg-accent-green",
+  distro: "bg-accent-purple",
 };
 
 export function ActivityFeed({ token }: { token: string }) {
@@ -24,11 +25,14 @@ export function ActivityFeed({ token }: { token: string }) {
   const distro = useRecentRuns(token, "distro");
 
   // Merge and sort by created_at desc
-  const allRuns = [
-    ...(plugins.data ?? []).map((r) => ({ ...r, repo: "plugins" as RepoKey })),
-    ...(base.data ?? []).map((r) => ({ ...r, repo: "base" as RepoKey })),
-    ...(distro.data ?? []).map((r) => ({ ...r, repo: "distro" as RepoKey })),
-  ].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  const allRuns = useMemo(() =>
+    [
+      ...(plugins.data ?? []).map((r) => ({ ...r, repo: "plugins" as RepoKey })),
+      ...(base.data ?? []).map((r) => ({ ...r, repo: "base" as RepoKey })),
+      ...(distro.data ?? []).map((r) => ({ ...r, repo: "distro" as RepoKey })),
+    ].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()),
+    [plugins.data, base.data, distro.data],
+  );
 
   return (
     <div className="bg-feed rounded-lg border border-border overflow-hidden">
@@ -51,6 +55,7 @@ export function ActivityFeed({ token }: { token: string }) {
             <a
               href={run.html_url}
               target="_blank"
+              rel="noopener noreferrer"
               className="text-text-secondary hover:text-text-primary truncate"
             >
               {run.name}

@@ -1,5 +1,6 @@
 import { useTriggerUpdate, useTriggerRelease } from "../lib/actions";
 import { useRepoStatus } from "../lib/hooks";
+import { getStatusColor } from "../types";
 import { StatusBadge } from "./StatusBadge";
 
 export function RepoCard({
@@ -15,14 +16,7 @@ export function RepoCard({
   const triggerUpdate = useTriggerUpdate(token, repoKey);
   const triggerRelease = useTriggerRelease(token, repoKey);
 
-  const statusColor =
-    runningNow.length > 0
-      ? "bg-neon-amber"
-      : recentRuns[0]?.conclusion === "failure"
-        ? "bg-neon-red"
-        : recentRuns[0]?.conclusion === "success"
-          ? "bg-neon-green"
-          : "bg-border";
+  const statusColor = getStatusColor(runningNow, recentRuns);
 
   return (
     <div className="bg-card rounded-lg overflow-hidden border border-border">
@@ -40,10 +34,10 @@ export function RepoCard({
           <>
             {/* Running workflows */}
             {runningNow.length > 0 && (
-              <div className="bg-neon-amber/10 border border-neon-amber/30 rounded p-3 text-sm">
+              <div className="bg-accent-amber/10 border border-accent-amber/30 rounded p-3 text-sm">
                 {runningNow.map((r) => (
                   <div key={r.id}>
-                    <a href={r.html_url} target="_blank" className="text-neon-amber hover:underline">
+                    <a href={r.html_url} target="_blank" rel="noopener noreferrer" className="text-accent-amber hover:underline">
                       {r.name}
                     </a>{" "}
                     — running
@@ -61,10 +55,11 @@ export function RepoCard({
                     key={pr.number}
                     href={pr.html_url}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className={`block text-sm hover:underline ${
                       pr.title.includes("chore:") || pr.title.toLowerCase().includes("automated")
-                        ? "text-neon-amber"
-                        : "text-neon-blue"
+                        ? "text-accent-amber"
+                        : "text-accent-blue"
                     }`}
                   >
                     #{pr.number} {pr.title}
@@ -79,7 +74,7 @@ export function RepoCard({
               {recentRuns.slice(0, 3).map((run) => (
                 <div key={run.id} className="flex items-center gap-2 text-sm mb-1">
                   <StatusBadge status={run.status} conclusion={run.conclusion} />
-                  <a href={run.html_url} target="_blank" className="text-text-secondary hover:text-text-primary truncate">
+                  <a href={run.html_url} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-text-primary truncate">
                     {run.name}
                   </a>
                 </div>
@@ -104,7 +99,7 @@ export function RepoCard({
               }
             }}
             disabled={triggerRelease.isPending}
-            className="flex-1 py-2 rounded text-sm font-medium bg-neon-blue/15 text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/25 transition-colors disabled:opacity-50"
+            className="flex-1 py-2 rounded text-sm font-medium bg-accent-blue/15 text-accent-blue border border-accent-blue/30 hover:bg-accent-blue/25 transition-colors disabled:opacity-50"
           >
             {triggerRelease.isPending ? "Releasing..." : "Release"}
           </button>

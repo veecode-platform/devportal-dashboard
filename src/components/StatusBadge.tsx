@@ -7,24 +7,24 @@ export function StatusBadge({
 }) {
   if (status === "in_progress") {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-neon-amber/15 text-neon-amber text-xs font-medium">
-        <span className="w-1.5 h-1.5 rounded-full bg-neon-amber animate-pulse" />
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent-amber/15 text-accent-amber text-xs font-medium">
+        <span className="w-1.5 h-1.5 rounded-full bg-accent-amber animate-pulse" />
         running
       </span>
     );
   }
   if (conclusion === "success") {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-neon-green/15 text-neon-green text-xs font-medium">
-        <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent-green/15 text-accent-green text-xs font-medium">
+        <span className="w-1.5 h-1.5 rounded-full bg-accent-green" />
         success
       </span>
     );
   }
   if (conclusion === "failure") {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-neon-red/15 text-neon-red text-xs font-medium">
-        <span className="w-1.5 h-1.5 rounded-full bg-neon-red" />
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent-red/15 text-accent-red text-xs font-medium">
+        <span className="w-1.5 h-1.5 rounded-full bg-accent-red" />
         failed
       </span>
     );

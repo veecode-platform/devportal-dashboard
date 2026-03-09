@@ -40,6 +40,14 @@ export interface PluginWorkspace {
 
 export type BumpType = "patch" | "minor" | "major";
 
+/** Derive the card status-strip color from repo status */
+export function getStatusColor(runningNow: WorkflowRun[], recentRuns: WorkflowRun[]): string {
+  if (runningNow.length > 0) return "bg-accent-amber";
+  if (recentRuns[0]?.conclusion === "failure") return "bg-accent-red";
+  if (recentRuns[0]?.conclusion === "success") return "bg-accent-green";
+  return "bg-border";
+}
+
 export type StageStatus = "idle" | "running" | "done" | "failed" | "waiting";
 
 export interface PipelineStage {
