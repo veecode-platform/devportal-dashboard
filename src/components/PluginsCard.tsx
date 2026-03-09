@@ -27,7 +27,7 @@ export function PluginsCard({ token }: { token: string }) {
         <h2 className="text-base font-semibold text-text-primary">devportal-plugins</h2>
 
         {wsLoading ? (
-          <p className="text-gray-500 text-sm">Loading workspaces...</p>
+          <p className="text-text-muted text-sm">Loading workspaces...</p>
         ) : (
           <div>
             <span className="text-xs font-medium uppercase tracking-wider text-text-muted block mb-1.5">Workspaces:</span>

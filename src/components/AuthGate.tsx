@@ -42,7 +42,7 @@ export function AuthGate({ onAuth }: { onAuth: (token: string) => void }) {
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="w-full py-2 bg-neon-blue hover:bg-neon-blue/80 disabled:opacity-50 rounded text-white font-medium"
+          className="w-full py-2 bg-neon-blue hover:bg-neon-blue/80 disabled:opacity-50 rounded text-white font-medium transition-colors"
         >
           {loading ? "Validating..." : "Connect"}
         </button>

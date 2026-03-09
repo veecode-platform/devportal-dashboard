@@ -35,7 +35,7 @@ export function RepoCard({
         </div>
 
         {isLoading ? (
-          <p className="text-gray-500 text-sm">Loading...</p>
+          <p className="text-text-muted text-sm">Loading...</p>
         ) : (
           <>
             {/* Running workflows */}

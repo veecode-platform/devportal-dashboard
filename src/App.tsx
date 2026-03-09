@@ -50,7 +50,7 @@ export default function App() {
           <h1 className="text-2xl font-bold">DevPortal Release Pipeline</h1>
           <button
             onClick={() => logout(setToken)}
-            className="text-sm text-text-secondary hover:text-white"
+            className="text-sm text-text-secondary hover:text-text-primary transition-colors"
           >
             Logout
           </button>
