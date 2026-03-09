@@ -1,5 +1,6 @@
 import { useRecentRuns } from "../lib/hooks";
 import type { RepoKey } from "../types";
+import { StatusBadge } from "./StatusBadge";
 
 function timeAgo(date: string): string {
   const seconds = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
@@ -11,11 +12,10 @@ function timeAgo(date: string): string {
   return `${Math.floor(hours / 24)}d ago`;
 }
 
-const STATUS_COLORS: Record<string, string> = {
-  success: "text-green-400",
-  failure: "text-red-400",
-  in_progress: "text-yellow-400",
-  queued: "text-gray-400",
+const REPO_DOT: Record<RepoKey, string> = {
+  plugins: "bg-neon-blue",
+  base: "bg-neon-green",
+  distro: "bg-neon-purple",
 };
 
 export function ActivityFeed({ token }: { token: string }) {
@@ -31,27 +31,37 @@ export function ActivityFeed({ token }: { token: string }) {
   ].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
   return (
-    <div className="bg-gray-900 rounded-lg p-5">
-      <h2 className="text-lg font-semibold mb-3">Recent Activity</h2>
-      <div className="space-y-2 max-h-64 overflow-y-auto">
+    <div className="bg-feed rounded-lg border border-border overflow-hidden">
+      <div className="px-5 py-3 border-b border-border">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-text-muted">
+          Recent Activity
+        </h2>
+      </div>
+      <div className="divide-y divide-border-subtle max-h-72 overflow-y-auto">
         {allRuns.slice(0, 20).map((run) => (
-          <div key={`${run.repo}-${run.id}`} className="flex items-center gap-3 text-sm">
-            <span className="text-gray-500 w-16 shrink-0">{timeAgo(run.created_at)}</span>
-            <span className="text-gray-400 w-20 shrink-0">{run.repo}</span>
+          <div
+            key={`${run.repo}-${run.id}`}
+            className="flex items-center gap-3 px-5 py-2 text-sm hover:bg-card-hover/50 transition-colors"
+          >
+            <span className={`w-2 h-2 rounded-full shrink-0 ${REPO_DOT[run.repo]}`} />
+            <span className="font-mono text-text-muted w-16 shrink-0 text-xs">
+              {timeAgo(run.created_at)}
+            </span>
+            <span className="text-text-muted w-16 shrink-0 text-xs">{run.repo}</span>
             <a
               href={run.html_url}
               target="_blank"
-              className="text-gray-300 hover:text-white truncate"
+              className="text-text-secondary hover:text-text-primary truncate"
             >
               {run.name}
             </a>
-            <span className={`ml-auto shrink-0 ${STATUS_COLORS[run.conclusion ?? run.status ?? ""] ?? "text-gray-500"}`}>
-              {run.conclusion ?? run.status}
+            <span className="ml-auto shrink-0">
+              <StatusBadge status={run.status} conclusion={run.conclusion} />
             </span>
           </div>
         ))}
         {allRuns.length === 0 && (
-          <p className="text-gray-500 text-sm">No recent activity.</p>
+          <p className="text-text-muted text-sm px-5 py-4">No recent activity.</p>
         )}
       </div>
     </div>
